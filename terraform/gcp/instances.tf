@@ -46,3 +46,21 @@ resource google_compute_disk "unencrypted_disk" {
     yor_trace            = "db914048-2ec8-4c0f-b081-1a71588b80eb"
   }
 }
+
+resource "google_compute_firewall" "default" {
+  name = "test-firewall"
+  network = google_compute_network.default.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports =["80", "8080", "22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+
